@@ -11,23 +11,9 @@ from PySide2.QtCore import Qt, QSize
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import (
     QApplication,
-    QCheckBox,
-    QComboBox,
-    QDateEdit,
-    QDateTimeEdit,
-    QDial,
-    QDoubleSpinBox,
-    QFontComboBox,
-    QLabel,
-    QLCDNumber,
     QLineEdit,
     QMainWindow,
-    QProgressBar,
     QPushButton,
-    QRadioButton,
-    QSlider,
-    QSpinBox,
-    QTimeEdit,
     QVBoxLayout,
     QWidget,
 )
@@ -46,11 +32,8 @@ class MainWindow(QMainWindow):
         layout1 = QHBoxLayout()
         layout2 = QVBoxLayout() 
 
-        # Create the maptlotlib FigureCanvas object,
-        # which defines a single set of axes as self.axes.
         self.sc = MplCanvas(self, width=5, height=4, dpi=100)
 
-        
         self.msgF = QMessageBox()
         self.msgF.setIcon(QMessageBox.Critical)
         self.msgF.setText("Error in function")
@@ -60,12 +43,13 @@ class MainWindow(QMainWindow):
         self.msgV = QMessageBox()
         self.msgV.setIcon(QMessageBox.Critical)
         self.msgV.setText("Error in value")
-        self.msgV.setInformativeText('Missing min or max value')
+        self.msgV.setInformativeText('Wrong min or max value')
         self.msgV.setWindowTitle("Error")
 
         # Create widgets for the application 
-        self.plotButton = QPushButton("Plot")
+        self.plotButton = QPushButton("Plot!")
         self.plotButton.clicked.connect(self.inputFunction)
+        self.plotButton.setStyleSheet("background-color: #70e000")
         self.textFieldFunction = CustomEditText("Enter Function")
         self.textFieldMin = CustomEditText("Min Value")
         self.textFieldMax = CustomEditText("Max Value")
@@ -113,7 +97,7 @@ class MainWindow(QMainWindow):
         for i in f:
             y.append(self.syExpr.subs(x, i))
         self.sc.axes.cla()
-        self.sc.axes.plot(f, y)
+        self.sc.axes.plot(f, y, color="#70e000")
         self.sc.draw()
 
 
@@ -123,13 +107,7 @@ class CustomEditText(QLineEdit):
     def __init__(self, placeHolder):
         super().__init__()
         self.setPlaceholderText(placeHolder)
-        
-# Customized Edit Text 
-class CustomPushButton(QPushButton):
-    def __init__(self, placeHolder):
-        super().__init__()
-        self.setPlaceholderText(placeHolder)
-        
+        self.setStyleSheet("QLineEdit:focus {border: 1px solid #70e000;}")
 
 class MplCanvas(FigureCanvasQTAgg):
 
