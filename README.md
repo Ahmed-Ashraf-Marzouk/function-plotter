@@ -17,8 +17,10 @@ A simple function plotter that allows you to plot mathematical functions in a gr
 
 ## Demo
 <p align="center">
+  <h3>- Normal cases</h3>
   <img src="demo/d_1.png" width="500" title="Normal case">
   <img src="demo/d_2.png" width="500" title="Normal case">
+  <h3>- Error cases</h3>
   <img src="demo/d_3.png" width="500" title="Error case">
   <img src="demo/d_4.png" width="500" title="Error case">
 </p>
