@@ -34,12 +34,14 @@ class MainWindow(QMainWindow):
 
         self.sc = MplCanvas(self, width=5, height=4, dpi=100)
 
+        # Error message for input function 
         self.msgF = QMessageBox()
         self.msgF.setIcon(QMessageBox.Critical)
         self.msgF.setText("Error in function")
         self.msgF.setInformativeText('Invalid input function')
         self.msgF.setWindowTitle("Error")
        
+        # Error message for min and max values
         self.msgV = QMessageBox()
         self.msgV.setIcon(QMessageBox.Critical)
         self.msgV.setText("Error in value")
@@ -65,6 +67,7 @@ class MainWindow(QMainWindow):
         layout2.addWidget(self.sc)
         layout2.setAlignment(Qt.AlignTop)
 
+        # set the layout
         self.setIcon()
         widget = QWidget()
         widget.setLayout(layout2)
@@ -79,7 +82,6 @@ class MainWindow(QMainWindow):
         self.validate(funcText)
     
     def validate(self, expr):
-        
         try:
            self.plot(expr)
         except SympifyError:
@@ -109,18 +111,17 @@ class CustomEditText(QLineEdit):
         self.setPlaceholderText(placeHolder)
         self.setStyleSheet("QLineEdit:focus {border: 1px solid #70e000;}")
 
-class MplCanvas(FigureCanvasQTAgg):
 
+class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
         super(MplCanvas, self).__init__(fig)
 
 
+# Comment the coming lines while testing 
 
 app = QApplication(sys.argv)
-
 window = MainWindow()
 window.show()
-
 app.exec_()
